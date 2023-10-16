@@ -38,7 +38,7 @@
                             <li>Fats: {{ product.fats }}</li>
                         </ul>
                         <h4 class="price">Price: <span>{{ product.price }} EUR/ 100g</span></h4>
-                        <form action="{% url 'icedreamapp:add-to-cart' 'box'  product.id %}" method="post">
+                        <form action="{% url 'icedreamapp:add-to-cart' product.id %}" method="post">
                             {% csrf_token %}
 <!--                        <div class="action">-->
                             <button class="btn btn-warning" >Add to cart &raquo;</button>

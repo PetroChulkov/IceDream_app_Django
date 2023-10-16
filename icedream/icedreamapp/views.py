@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import IceCream, Cart, CartItem, ConeBox
+from .models import IceCream, Cart, CartItem
 from django.contrib.auth.decorators import login_required
-from .forms import ContactForm
+from .forms import ContactForm, CheckoutForm
 from django.db.models import F, Sum
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseRedirect
@@ -13,26 +13,21 @@ def index(request):
 
 def flavors(request):
     products = IceCream.objects.all()
-    boxes = ConeBox.objects.all()
-    return render(request, 'icedreamapp/flavors.html', {"products": products, "boxes": boxes})
+    return render(request, 'icedreamapp/flavors.html', {"products": products})
 
 def about(request):
     return render(request, 'icedreamapp/about.html')
 
-def detail(request, marker, product_id):
-    if marker == 'icecream':
-        product = get_object_or_404(IceCream, pk=product_id)
-    else:
-        product = get_object_or_404(ConeBox, pk=product_id)
+def detail(request, product_id):
+    product = get_object_or_404(IceCream, pk=product_id)
     return render(request, 'icedreamapp/product.html', {"product": product})
 
 
 @login_required(login_url='login')
-def add_to_cart(request, marker, product_id):
-    if marker == 'icecream':
-        product = IceCream.objects.get(pk=product_id)
-    else:
-        product = ConeBox.objects.get(pk=product_id)
+def add_to_cart(request, product_id):
+
+    product = IceCream.objects.get(pk=product_id)
+
     cart, created = Cart.objects.get_or_create(user=request.user)
     cart_item, item_created = CartItem.objects.get_or_create(cart=cart, product=product)
     price = cart_item.product.price
@@ -53,11 +48,8 @@ def add_to_cart(request, marker, product_id):
 
 
 @login_required(login_url='login')
-def remove_from_cart(request, marker, product_id):
-    if marker == 'icecream':
-        product = IceCream.objects.get(pk=product_id)
-    else:
-        product = ConeBox.objects.get(pk=product_id)
+def remove_from_cart(request, product_id):
+    product = IceCream.objects.get(pk=product_id)
     cart = Cart.objects.get(user=request.user)
     try:
         cart_item = cart.cartitem_set.get(product=product)
@@ -136,3 +128,19 @@ def view_checkout(request):
     sum = CartItem.objects.filter(cart=cart).aggregate(Sum('total'))
     count = CartItem.objects.filter(cart=cart).count()
     return render(request, 'checkout.html', {'cart_items': cart_items, 'sum':sum, 'count':count})
+
+@login_required(login_url='login')
+def checkout_view(request):
+    if request.method == 'POST':
+        form = CheckoutForm(request.POST)
+        if form.is_valid():
+            # Save the form data to the database
+            checkout_info = form.save(commit=False)
+            checkout_info.user = request.user  # Assuming you have user authentication
+            checkout_info.save()
+            return redirect('success_page')  # Redirect to a success page
+
+    else:
+        form = CheckoutForm()
+
+    return render(request, 'checkout.html', {'form': form})

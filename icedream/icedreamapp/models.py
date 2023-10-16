@@ -7,6 +7,7 @@ class IceCream(models.Model):
         ('Ice Cream', ('Ice Cream')),
         ('Sorbet', ('Sorbet')),
         ('Vegan', ('Vegan')),
+        ('Cone/Box', ('Cone/Box')),
     )
     name = models.CharField(max_length=50, null=False, unique=True)
     compound = models.CharField(max_length=150, null=False)
@@ -15,6 +16,7 @@ class IceCream(models.Model):
     carbonhydrates = models.CharField(max_length=25, null=False)
     fats = models.CharField(max_length=25, null=False)
     price = models.FloatField(default=0)
+    size = models.CharField(max_length=50, null=False, unique=False)
     rating = models.IntegerField(default=0)
     special = models.BooleanField(default=False)
     type = models.CharField(max_length=32,
@@ -26,14 +28,17 @@ class IceCream(models.Model):
     def __str__(self):
         return f"{self.name}"
 
-class ConeBox(models.Model):
-    name = models.CharField(max_length=50, null=False, unique=True)
-    price = models.FloatField(default=0)
-    size = models.CharField(max_length=50, null=False, unique=False)
-    image = CloudinaryField('image', default='image')
-
-    def __str__(self):
-        return f"{self.name}"
+class CheckoutInfo(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    phone = models.CharField(max_length=15)
+    email = models.EmailField()
+    address = models.CharField(max_length=200)
+    city = models.CharField(max_length=100)
+    postal_code = models.CharField(max_length=10)
+    shipping_option = models.CharField(max_length=20)
+    message = models.TextField()
 
 class CartItem(models.Model):
     cart = models.ForeignKey('Cart', on_delete=models.CASCADE)

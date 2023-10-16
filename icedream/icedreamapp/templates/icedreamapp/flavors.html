@@ -22,7 +22,7 @@
                     <div class="card-body">
                         <h5 class="card-title text-center">{{ product.name }}</h5>
                         <p class="card-text text-center">€ {{ product.price }}/100g</p>
-                        <a href="{% url 'icedreamapp:detail' 'icecream' product.id  %}" class="btn btn-warning btn-block">View details &raquo;</a>
+                        <a href="{% url 'icedreamapp:detail' product.id  %}" class="btn btn-warning btn-block">View details &raquo;</a>
                     </div>
                 </div>
             </div><!-- /.col-md-4 -->
@@ -44,7 +44,7 @@
                     <div class="card-body">
                         <h5 class="card-title text-center">{{ product.name }}</h5>
                         <p class="card-text text-center">€ {{ product.price }}/100g</p>
-                        <a href="{% url 'icedreamapp:detail' 'icecream' product.id  %}" class="btn btn-warning btn-block">View details &raquo;</a>
+                        <a href="{% url 'icedreamapp:detail' product.id  %}" class="btn btn-warning btn-block">View details &raquo;</a>
                     </div>
                 </div>
             </div><!-- /.col-md-4 -->
@@ -66,7 +66,7 @@
                     <div class="card-body">
                         <h5 class="card-title text-center">{{ product.name }}</h5>
                         <p class="card-text text-center">€ {{ product.price }}/100g</p>
-                        <a href="{% url 'icedreamapp:detail' 'icecream' product.id  %}" class="btn btn-warning btn-block">View details &raquo;</a>
+                        <a href="{% url 'icedreamapp:detail' product.id  %}" class="btn btn-warning btn-block">View details &raquo;</a>
                     </div>
                 </div>
             </div><!-- /.col-md-4 -->
@@ -78,19 +78,21 @@
         </div>
         <hr>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
-            {% for box in boxes %}
+            {% for product in products %}
+            {% if product.type == 'Cone/Box' %}
             <div class="col">
                 <div class="card mb-4">
-                    <img src="{{ box.image.url }}"  height="200"  class="rounded mx-auto d-block"
+                    <img src="{{ product.image.url }}"  height="200"  class="rounded mx-auto d-block"
                      alt="banner"/>
                     <div class="card-body">
-                        <h5 class="card-title text-center">{{ box.name }}</h5>
-                        <p class="card-text text-center">€ {{ box.price }}</p>
-                        <p class="card-text text-center">{{ box.size }}g</p>
-                        <a href="{% url 'icedreamapp:detail' 'box' box.id  %}" class="btn btn-warning btn-block">View details &raquo;</a>
+                        <h5 class="card-title text-center">{{ product.name }}</h5>
+                        <p class="card-text text-center">€ {{ product.price }}</p>
+                        <p class="card-text text-center">{{ product.size }}g</p>
+                        <a href="{% url 'icedreamapp:detail' product.id  %}" class="btn btn-warning btn-block">View details &raquo;</a>
                     </div>
                 </div>
             </div><!-- /.col-md-4 -->
+            {% endif %}
             {% endfor %}
         </div><!-- /.row -->
 

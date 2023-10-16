@@ -35,7 +35,7 @@
                      alt="banner"/>
                 <h2 class="text-center">{{ product.name }}</h2>
                 <p class="text-center">{{ product.price }} EUR/100g</p>
-                <p class="text-center"><a class="btn btn-warning" href="{% url 'icedreamapp:detail' 'icecream' product.id %}">View details &raquo;</a></p>
+                <p class="text-center"><a class="btn btn-warning" href="{% url 'icedreamapp:detail' product.id %}">View details &raquo;</a></p>
             </div><!-- /.col-md-4 -->
             {% endfor %}
         </div><!-- /.row -->

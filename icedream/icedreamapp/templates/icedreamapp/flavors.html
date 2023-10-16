@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+{% load static %}
+<main role="main">
+    <section>
+    <div class="container marketing">
+        <div class="text-center">
+            <h2 class="display-4">Ice Cream</h2>
+        </div>
+        <hr>
+        <!-- Fixed size for product cards -->
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
+            {% for product in products %}
+            {% if product.type == 'IceCream' %}
+            <div class="col">
+                <div class="card mb-4">
+                    <img src="{{ product.image.url }}" width="200" height="200" class="rounded mx-auto d-block"
+                     alt="banner"/>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ product.name }}</h5>
+                        <p class="card-text text-center">€ {{ product.price }}/100g</p>
+                        <a href="{% url 'icedreamapp:detail' 'icecream' product.id  %}" class="btn btn-warning btn-block">View details &raquo;</a>
+                    </div>
+                </div>
+            </div><!-- /.col-md-4 -->
+            {% endif %}
+            {% endfor %}
+        </div><!-- /.row -->
+        <div class="text-center">
+            <h2 class="display-4">Sorbet</h2>
+        </div>
+        <hr>
+        <!-- Fixed size for product cards -->
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
+            {% for product in products %}
+            {% if product.type == 'Sorbet' %}
+            <div class="col">
+                <div class="card mb-4">
+                    <img src="{{ product.image.url }}" width="200" height="200" class="rounded mx-auto d-block"
+                     alt="banner"/>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ product.name }}</h5>
+                        <p class="card-text text-center">€ {{ product.price }}/100g</p>
+                        <a href="{% url 'icedreamapp:detail' 'icecream' product.id  %}" class="btn btn-warning btn-block">View details &raquo;</a>
+                    </div>
+                </div>
+            </div><!-- /.col-md-4 -->
+            {% endif %}
+            {% endfor %}
+        </div><!-- /.row -->
+        <div class="text-center">
+            <h2 class="display-4">Vegan</h2>
+        </div>
+        <hr>
+        <!-- Fixed size for product cards -->
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
+            {% for product in products %}
+            {% if product.type == 'Vegan' %}
+            <div class="col">
+                <div class="card mb-4">
+                    <img src="{{ product.image.url }}" width="200" height="200" class="rounded mx-auto d-block"
+                     alt="banner"/>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ product.name }}</h5>
+                        <p class="card-text text-center">€ {{ product.price }}/100g</p>
+                        <a href="{% url 'icedreamapp:detail' 'icecream' product.id  %}" class="btn btn-warning btn-block">View details &raquo;</a>
+                    </div>
+                </div>
+            </div><!-- /.col-md-4 -->
+            {% endif %}
+            {% endfor %}
+        </div><!-- /.row -->
+        <div class="text-center">
+            <h2 class="display-4">Cones & Boxes</h2>
+        </div>
+        <hr>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
+            {% for box in boxes %}
+            <div class="col">
+                <div class="card mb-4">
+                    <img src="{{ box.image.url }}"  height="200"  class="rounded mx-auto d-block"
+                     alt="banner"/>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ box.name }}</h5>
+                        <p class="card-text text-center">€ {{ box.price }}</p>
+                        <p class="card-text text-center">{{ box.size }}g</p>
+                        <a href="{% url 'icedreamapp:detail' 'box' box.id  %}" class="btn btn-warning btn-block">View details &raquo;</a>
+                    </div>
+                </div>
+            </div><!-- /.col-md-4 -->
+            {% endfor %}
+        </div><!-- /.row -->
+
+    </div> <!-- /container -->
+    </section>
+</main>
+</style>
+{% endblock %}

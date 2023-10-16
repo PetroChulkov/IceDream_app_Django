@@ -1,0 +1,30 @@
+<form method="post" action="{% url 'users:signup' %}">
+              {% csrf_token %}
+              {% load widget_tweaks %}
+              <!-- 2 column grid layout with text inputs for the first and last names -->
+                <div class="form-outline mb-4">
+                    {% render_field form.username type="text" class="form-control" id="exampleInputUsername" placeholder="Username" %}
+                </div>
+
+
+              <!-- Password input -->
+              <div class="form-outline mb-4">
+                {% render_field form.password1 type="password" class="form-control" id="exampleInputPassword" placeholder="Password" %}
+              </div>
+
+              <div class="form-outline mb-4">
+                {% render_field form.password2 type="password" class="form-control" id="exampleInputPassword" placeholder="Confirm Password" %}
+              </div>
+
+
+
+
+
+              <!-- Submit button -->
+              <button type="submit" class="btn btn-warning">
+                Sign up
+              </button>
+
+              <!-- Register buttons -->
+
+            </form>

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+{% load static %}
+
+<div class="jumbotron text-center">
+  <h1 class="display-3">Success!</h1>
+  <p class="lead"><strong>Thank you for your message</strong></p>
+  <hr>
+
+  <p>
+    <a class="btn btn-warning" href="{% url 'icedreamapp:index' %}" role="button">Continue to homepage</a>
+  </p>
+</div>
+
+{% endblock %}

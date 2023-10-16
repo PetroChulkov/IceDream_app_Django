@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+{% load static %}
+
+
+<main>
+
+    <section style="background-color: #eee;">
+        {% if user.is_authenticated %}
+        {% csrf_token %}
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <img src="{% static 'icedreamapp/img/avatar.png' %}" alt="avatar"
+              class="rounded-circle img-fluid" style="width: 150px;">
+            <h5 class="my-3">{{ user.username }}</h5>
+              </br>
+            <p class="text-muted mb-1">Date joined: {{ user.date_joined }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">First Name</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ user.profile.first_name }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+            <div class="col-sm-3">
+                <p class="mb-0">Last Name</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ user.profile.last_name }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Email</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ user.email }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Phone</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ user.profile.phone }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Address</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{ user.profile.house }}, {{ user.profile.postal_code }}, {{ user.profile.city }} </p>
+              </div>
+            </div>
+            {% if messages %}
+            <div>
+              {% for message in messages %}
+              <div {% if message.tags %} class="alert-{{ message.tags }}" {% endif %}>{{ message }}</div>
+              {% endfor %}
+            </div>
+            {% endif %}
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Payment Method</p>
+              </div>
+              <div class="col-sm-9">
+                <div class="d-flex align-items-center">
+
+                  <p class="text-muted mb-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi
+                    bi-credit-card-2-back" viewBox="0 0 16 16">
+                      <path d="M11 5.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1z"/>
+                      <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2zm13 2v5H1V4a1 1 0 0
+                       1 1-1h12a1 1 0 0 1 1 1zm-1 9H2a1 1 0 0 1-1-1v-1h14v1a1 1 0 0 1-1 1z"/>
+                    </svg>
+                    <span class="small text-muted"> **** 0000</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+{% endif %}
+{% endblock %}

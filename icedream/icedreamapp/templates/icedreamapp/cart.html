@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+{% load static %}
+
+
+    <section class="bg-light text-center" style="background-color: #FFFFFF;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12">
+                    <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                        <div class="card-body p-0">
+                            <div class="row g-0">
+                                <div class="col-lg-8">
+                                    <div class="p-5">
+                                        <div class="d-flex justify-content-between align-items-center mb-5">
+                                            <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
+                                            <h6 class="mb-0 text-muted">{{ count }} items</h6>
+                                        </div>
+                                        <hr class="my-4">
+                                        {% if user.is_authenticated %}
+
+                                        {% for item in cart_items %}
+                                        <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                            <div class="col-md-2 col-lg-2 col-xl-2">
+                                                <img
+                                                        src="{{ item.product.image.url }}" width="200" height="200"
+                                                        class="img-fluid rounded-3" alt="Cotton T-shirt">
+                                            </div>
+                                            <div class="col-md-3 col-lg-3 col-xl-3">
+                                                <h6 class="text-muted">Ice Cream</h6>
+                                                <h6 class="text-black mb-0">{{ item.product.name }}</h6>
+                                            </div>
+
+                                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                                <form action="{% url 'icedreamapp:increase-cart-item' item.product.id %}"
+                                                      method="post">
+                                                    {% csrf_token %}
+                                                    <button class="btn btn-warning px-3 ms-2" type="submit">+
+                                                    </button>
+                                                </form>
+                                                <div class="form-outline">
+                                                    <span id="form1" class="form-control">{{ item.quantity }}00g</span>
+                                                </div>
+                                                <form action="{% url 'icedreamapp:decrease-cart-item' item.product.id %}"
+                                                      method="post">
+                                                    {% csrf_token %}
+                                                    <button class="btn btn-warning px-3 ms-2" type="submit">-
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                                <h6 class="mb-0">€ {{ item.total }}</h6>
+                                            </div>
+                                            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                                <a href="{% url 'icedreamapp:remove-from-cart' item.product.id %}"
+                                                      method="post">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                     fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0
+                                                     1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646
+                                                     2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                                </svg>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <hr class="my-4">
+                                        {% endfor %}
+                                        {% endif %}
+
+
+                                        <div class="pt-5">
+                                            <h6 class="mb-0"><a href="{% url 'icedreamapp:flavors' %}" class="text-body"><i
+                                                    class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 bg-grey">
+                                    <div class="p-5">
+                                        <hr class="my-4">
+                                        <div class="d-flex justify-content-between mb-5">
+                                            <h5 class="text-uppercase">Total price</h5>
+                                            <h5>€ {{ sum.total__sum }}</h5>
+                                        </div>
+
+                                        <a type="button" class="btn btn-warning btn-block btn-lg" href="{% url 'icedreamapp:checkout' %}"
+                                                data-mdb-ripple-color="dark">Proceed to Checkout
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<hr>
+
+{% endblock %}

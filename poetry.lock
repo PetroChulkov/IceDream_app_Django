@@ -13,7 +13,6 @@ files = [
 
 [package.extras]
 tests = ["mypy (>=0.800)", "pytest", "pytest-asyncio"]
-
 [[package]]
 name = "certifi"
 version = "2023.7.22"
